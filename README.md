@@ -1,5 +1,7 @@
 TaskFlow is a modern task and project management web application built using React + Vite + Tailwind CSS + shadcn/ui.
+
 It provides a clean UI structure for managing projects, assigning tasks, and tracking workflow efficiently.
+
 🚀 Tech Stack
 Node.js 20
 Vite v7.2.4
@@ -7,6 +9,7 @@ React
 Tailwind CSS v3.4.19
 shadcn/ui
 TypeScript
+
 📁 Project Structure
 Bash
 src/
