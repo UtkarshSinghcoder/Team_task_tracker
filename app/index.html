@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TaskFlow</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+    <script>
+      // Remove Kimi watermark elements
+      (function() {
+        function removeKimiWatermarks() {
+          // Remove floating badge
+          document.querySelectorAll('[class*="kimi"], [id*="kimi"], [href*="kimi.com/agent"]').forEach(function(el) {
+            el.remove();
+          });
+          // Remove any links to kimi agent
+          document.querySelectorAll('a').forEach(function(a) {
+            if (a.href && a.href.includes('kimi.com/agent')) {
+              a.remove();
+            }
+          });
+        }
+        // Run immediately and periodically
+        removeKimiWatermarks();
+        document.addEventListener('DOMContentLoaded', removeKimiWatermarks);
+        setInterval(removeKimiWatermarks, 100);
+        // Also intercept script injection
+        const observer = new MutationObserver(function(mutations) {
+          mutations.forEach(function(mutation) {
+            mutation.addedNodes.forEach(function(node) {
+              if (node.tagName === 'SCRIPT' && node.src && node.src.includes('kimi.com')) {
+                node.remove();
+              }
+              if (node.tagName === 'A' && node.href && node.href.includes('kimi.com/agent')) {
+                node.remove();
+              }
+            });
+          });
+        });
+        observer.observe(document.documentElement, { childList: true, subtree: true });
+      })();
+    </script>
+  </body>
+</html>
